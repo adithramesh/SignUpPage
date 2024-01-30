@@ -68,3 +68,5 @@ app.get('/logout',(req,res)=>{
 app.listen(PORT,()=>{
     console.log(`Server running on http://localhost:${PORT}`)
 })
+
+console.log('alkdjsbfjabdfds')
