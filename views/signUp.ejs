@@ -109,9 +109,7 @@
                 </div>
                     <%}%>
 
-                    <button type="submit" onclick="if(validateEmail() && validatePassword()){
-                        alert('Form Submitted Successfully')
-                    }">Signup</button>
+                    <button type="submit" >Signup</button>
                     <% if(expressFlash.emailerror){%>
                         <div style="color: red; font-size: 16px; font-weight: bold;">
                             <%= expressFlash.emailerror%>
