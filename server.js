@@ -12,7 +12,7 @@ const detail={
     name:"amrazhameed@gmail.com",
     password:"224816"
 }
-
+//comment
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.set('view engine','ejs')
