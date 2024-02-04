@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.bundle.min.js" integrity="sha512-X/YkDZyjTf4wyc2Vy16YGCPHwAY8rZJY+POgokZjQB2mhIRFJCckEGc6YyX9eNsPfn0PzThEuNs+uaomE5CO6A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <!-- Toggler/collapsible Button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <!-- Navbar Items -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                
+                <!-- Search -->
+                <li class="nav-item">
+                    <form action="/admin/main" method="post" class="form-inline" autocomplete="off">
+                        <div class="input-group" style="width: 255%;margin-left: 10px;">
+                            <input type="text" name="search" id="search" class="form-control" placeholder="Enter the name of User to be Searched">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+
+
+                <!-- Add User -->
+                <li class="nav-item ml-auto" style="margin-left: 880px;">
+                    <a class="nav-link" href="/admin/addUser"><i class="fas fa-user-plus"></i> Add User</a>
+                </li>
+                
+                <!-- Logout -->
+                <li class="nav-item ml-auto">
+                    <a class="nav-link" href="/admin/logoutAdmin"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+    
+
+    <div class="container">
+        <div class="row my-4">
+            <div class="col-lg-12">
+                <% if(userDeleted && userDeleted.length > 0) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <strong><%= userDeleted %></strong>
+                    </div>
+                <% } %>
+                <% if(userSuccess&&userSuccess.length>0) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                      <strong><%=userSuccess %></strong>
+                    </div>
+                  <% } %>
+                  
+                <div class="table-responsive">
+                    <%if(users!=""){%>
+                        <table class="table table-striped text-center">
+                            <thead>
+                                <tr class="table-dark">
+                                    <th>ID</th>
+                                    <th>UserName</th>
+                                    <th>Email</th>
+                                    <th>isAdmin</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% users.forEach((row,index) => { %>
+                                    <tr>
+                                        <td><%= index %></td>
+                                        <td><%= row.name %></td>
+                                        <td><%= row.email %></td>
+                                        <td><%= row.isAdmin %></td>
+                                        <td>
+                                            <a href="/admin/update/<%= row._id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="/admin/delete/<%= row._id %>" class="text-danger"><i class="fas fa-trash fa-lg mx-1"></i></a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    <%} else {%>  
+                        <h1 class="text-center text-secondary mt-5">No users found in the database</h1>
+                    <%}%>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

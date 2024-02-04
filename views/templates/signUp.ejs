@@ -5,83 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="static/stylesignUp.css">
 </head>
-<style>
-    body {
-        background-image: url("/views/background-img.jpg");
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
-
-    .container {
-        text-align: center;
-    }
-
-    form {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 300px;
-        margin: 0 auto;
-    }
-
-    h1 {
-        margin-bottom: 20px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 8px;
-    }
-
-    input {
-        width: calc(100% - 16px);
-        padding: 8px;
-        margin-bottom: 16px;
-        box-sizing: border-box;
-    }
-
-    span {
-        color: red;
-        font-size: 16px;
-    }
-
-    button {
-        background-color: #007bff;
-        color: #ffffff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-left: -40px;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    p {
-        margin-top: 20px;
-    }
-
-    a {
-        color: #007bff;
-        text-decoration: none;
-    }
-
-    a:hover {
-        text-decoration: underline;
-    }
-</style>
-
 <body>
     <div class="container">
         <form action="/signup" method="POST" onsubmit="return validateEmail() && validatePassword()">
