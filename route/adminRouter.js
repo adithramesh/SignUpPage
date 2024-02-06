@@ -34,6 +34,7 @@ adminrouter.post('/adminlogin', async (req, res) => {
 });
 
 adminrouter.get('/main', async (req, res) => {
+    if(req.session.isAdAuth){
     const userSuccess = req.flash('userSuccess') || [];
     const userDeleted = req.flash('userDeleted') || [];
 
@@ -48,6 +49,10 @@ adminrouter.get('/main', async (req, res) => {
         console.error('Error fetching users:', error);
         res.redirect('/admin');
     }
+}
+else{
+    res.redirect("/admin")
+}
 });
 
 adminrouter.post('/main', async (req, res) => {
@@ -118,14 +123,8 @@ adminrouter.post('/addUserSubmit', async (req, res) => {
 })
 
 adminrouter.get('/logoutAdmin', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            res.send("Error")
-        } else {
-
-            res.redirect('/admin')
-        }
-    })
+    req.session.isAdAuth=false
+    res.redirect("/admin")
 })
 
 adminrouter.get('/update/:id', async (req, res) => {

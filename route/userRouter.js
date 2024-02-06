@@ -2,31 +2,27 @@ const express = require('express');
 const userrouter = express.Router();
 const bcrypt = require('bcrypt');
 const collection = require('../mongodb');
+const session = require('express-session');
 
 userrouter.get("/", (req, res) => {
     if (req.session.isAuth) {
         res.render('templates/main', { user: req.session.user })
         return
     }
-    if (req.session.isAdAuth) {
-        res.redirect('/admin/main')
-        return
+    else{
+        res.render('templates/login', {
+            expressFlash: {
+                invaliduser: req.flash('invaliduser'),
+                invalidpassword: req.flash('invalidpassword'),
+                userSuccess: req.flash('userSuccess')
+            }
+        })
+
     }
-    res.render('templates/login', {
-        expressFlash: {
-            invaliduser: req.flash('invaliduser'),
-            invalidpassword: req.flash('invalidpassword'),
-            userSuccess: req.flash('userSuccess')
-        }
-    })
 })
 
 userrouter.get('/signup', (req, res) => {
-    if (req.session.isAdAuth) {
-        res.redirect('/admin/main')
-        return
-    }
-    if(!req.session.user)
+    if(!req.session.isAuth)
     {
     res.render('templates/signUp', {
         expressFlash: {
@@ -76,6 +72,8 @@ userrouter.post('/signup', async (req, res) => {
 userrouter.post('/login', async (req, res) => {
     try {
         const user = await collection.findOne({ email: req.body.email });
+
+        req.session.id=user._id
         if (user && await bcrypt.compare(req.body.password, user.password)) {
             req.session.user = req.body.email;
             req.session.isAuth = true;
@@ -89,26 +87,25 @@ userrouter.post('/login', async (req, res) => {
         res.redirect('/');
     }
 });
-
-
-userrouter.get('/dashboard', async(req, res) => {
-    if (req.session.user) {
-        res.render('templates/main', { user: req.session.user })
-    } else {
-        res.redirect('/')
+let check=(req,res,next)=>{
+    if(req.session.isAuth){
+        next()
+    }else{
+        res.redirect("/")
     }
+}
+
+
+userrouter.get('/dashboard', check,async(req, res) => {
+    
+        res.render('templates/main', { user: req.session.user })
+    
 })
 
 
 userrouter.get('/logout', (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            res.send("Error")
-        } else {
-
-            res.redirect('/')
-        }
-    })
+    req.session.isAuth=false
+    res.redirect('/')
 })
 
 
