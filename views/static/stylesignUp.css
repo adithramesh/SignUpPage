@@ -74,8 +74,10 @@
     .radio-group {
         display: flex;
         align-items: center;
+        justify-content: center;
+        margin-bottom: 10px; 
     }
 
-    .radio-group label {
+    .radio-group label div{
         margin-right: 10px; 
     }

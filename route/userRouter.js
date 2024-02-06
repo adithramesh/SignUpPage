@@ -22,6 +22,10 @@ userrouter.get("/", (req, res) => {
 })
 
 userrouter.get('/signup', (req, res) => {
+    if (req.session.isAdAuth) {
+        res.redirect('/admin/main')
+        return
+    }
     if(!req.session.user)
     {
     res.render('templates/signUp', {

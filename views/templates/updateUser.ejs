@@ -20,8 +20,9 @@
             <input type="email" id="email" name="email" onkeyup="validateEmail()" value="<%= user.email %>" required>
             <span id="emailerror"></span>
 
+            <div>isAdmin:</div>
             <div class="radio-group">
-                <label>
+                <label>   
                     <input type="radio" name="isAdmin" value="true" <% if (user.isAdmin) { %> checked <% } %>> True
                 </label>
                 <label>
