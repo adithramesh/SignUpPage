@@ -27,8 +27,8 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.use('/',userRouter)
-app.use('/admin',adminRouter)
+// app.use('/',userRouter)
+// app.use('/admin',adminRouter)
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
